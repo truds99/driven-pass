@@ -21,3 +21,16 @@ export async function verifyExistentEmail(email:string) {
         where: { email }
     })
 }
+
+export async function getPasswordRep(email: string) {
+    const { password } = await prisma.user.findUnique({
+        where: {
+          email: email,
+        },
+        select: {
+          password: true, 
+        }
+    })
+
+    return password;
+}

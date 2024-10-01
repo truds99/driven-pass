@@ -13,3 +13,10 @@ export function emailNotRegisteredError(): CustomError {
         message: 'email not found'
     }
 }
+
+export function incorrectPasswordError(): CustomError {
+    return {
+        name: 'unauthorized',
+        message: 'incorrect password'
+    }
+}
