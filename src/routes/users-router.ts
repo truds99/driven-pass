@@ -1,8 +1,9 @@
 import validateSchema from "../middlewares/schemas-middleware";
-import { postUser } from "../constrollers/users-controller";
+import { login, postUser } from "../controllers/users-controller";
 import { Router } from "express";
-import { userSchema } from "../schemas/user-schema";
+import { loginSchema, userSchema } from "../schemas/user-schema";
 
 export const usersRouter = Router();
 
 usersRouter.post('/sign-up', validateSchema(userSchema), postUser);
+usersRouter.post('/sign-in', validateSchema(loginSchema), login);

@@ -12,6 +12,9 @@ function errorHandlerMiddleware(
   if (err.name === 'conflict') {
     res.status(httpStatus.CONFLICT).send(err.message);
   }
+  else if (err.name === 'not found') {
+    res.status(httpStatus.NOT_FOUND).send(err.message);
+  }
   else {
     res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
   }

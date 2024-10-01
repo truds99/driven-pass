@@ -6,3 +6,10 @@ export function emailAlreadyRegisteredError(): CustomError {
         message: 'this email is already registered'
     }
 }
+
+export function emailNotRegisteredError(): CustomError {
+    return {
+        name: 'not found',
+        message: 'email not found'
+    }
+}

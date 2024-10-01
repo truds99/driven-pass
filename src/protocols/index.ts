@@ -7,3 +7,5 @@ export type CustomError = {
   
 
 export type UserData = Omit<User, 'id' | 'createAt' | 'credentials'>
+
+export type LoginData = Omit<UserData, 'name'>
