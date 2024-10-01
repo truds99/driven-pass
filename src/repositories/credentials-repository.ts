@@ -14,3 +14,15 @@ export async function postCredentialRep(credentialData: CredentialData, userId: 
         }
     })
 }
+
+export async function existingCredential(title: string, userId: number) {
+    const existingCredential = await prisma.credential.findFirst({
+        where: {
+            AND: [
+                { title },
+                { userId }
+            ]
+        }
+    });
+    return existingCredential;
+}

@@ -1,13 +1,15 @@
 import httpStatus from "http-status";
 import { Request, Response } from "express";
 import { CredentialData } from "protocols";
-import { postCredentialRep } from "../repositories/credentials-repository";
+import { existingCredential, postCredentialRep } from "../repositories/credentials-repository";
 import { User } from "@prisma/client";
+import { existentCredentialError } from "../errors/index"
 
 export async function postCredential(req: Request, res: Response) {
     const { username, password, title, url } = req.body as CredentialData
-
     const user = res.locals.user as User
+
+    if(await existingCredential(title, user.id)) throw existentCredentialError();
 
     await postCredentialRep(req.body, user.id);
 

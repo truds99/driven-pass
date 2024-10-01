@@ -27,3 +27,10 @@ export function invalidTokenError(): CustomError {
         message: 'invalid Token'
     }
 }
+
+export function existentCredentialError(): CustomError {
+    return {
+        name: 'conflict',
+        message: 'this credential is already registered'
+    }
+}

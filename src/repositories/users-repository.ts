@@ -42,7 +42,7 @@ export async function getUserByToken(decoded: any) {
 
     const user = await prisma.user.findUnique({
         where: {
-            email: decoded.email, // Acessa o userId do token decodificado
+            email: decoded.email
         },
     });
 
