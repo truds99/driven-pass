@@ -41,3 +41,10 @@ export function credentialNotFoundError(): CustomError {
         message: 'credential not found'
     }
 }
+
+export function badRequestError(): CustomError {
+    return {
+        name: 'bad request',
+        message: 'invalid parameters'
+    }
+}
