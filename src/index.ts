@@ -8,12 +8,14 @@ import 'express-async-errors'
 import cors from "cors";
 import { usersRouter } from "./routes/users-router";
 import errorHandlerMiddleware from "./middlewares/error-handler-middleware";
+import { credentialsRouter } from "./routes/credentials-router";
 
 const app = express();
 app.use(cors());
 app.use(json());
 
 app.use(usersRouter);
+app.use(credentialsRouter);
 app.use(errorHandlerMiddleware);
 
 app.get('/health', (req: Request, res: Response) => {

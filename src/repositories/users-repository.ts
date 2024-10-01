@@ -34,3 +34,17 @@ export async function getPasswordRep(email: string) {
 
     return password;
 }
+
+export async function getUserByToken(decoded: any) {
+    if (!decoded || !decoded.email) {
+        return null;
+    }
+
+    const user = await prisma.user.findUnique({
+        where: {
+            email: decoded.email, // Acessa o userId do token decodificado
+        },
+    });
+
+    return user;
+}

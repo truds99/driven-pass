@@ -20,3 +20,10 @@ export function incorrectPasswordError(): CustomError {
         message: 'incorrect password'
     }
 }
+
+export function invalidTokenError(): CustomError {
+    return {
+        name: 'unauthorized',
+        message: 'invalid Token'
+    }
+}
