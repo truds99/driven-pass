@@ -1,18 +1,23 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express, { json } from "express";
 import httpStatus from "http-status";
 import { Request, Response } from "express";
 import 'express-async-errors'
-import dotenv from "dotenv";
 import cors from "cors";
-import db from "./database/index";
+import { usersRouter } from "./routes/users-router";
+import errorHandlerMiddleware from "./middlewares/error-handler-middleware";
 
-dotenv.config();
 const app = express();
 app.use(cors());
 app.use(json());
 
+app.use(usersRouter);
+app.use(errorHandlerMiddleware);
+
 app.get('/health', (req: Request, res: Response) => {
-    res.send(`I'm ok`).status(httpStatus.OK);
+    res.status(httpStatus.OK).send(`I'm ok`);
 })
 
 const port = process.env.PORT || 5000;
