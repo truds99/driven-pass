@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { postUserRep, verifyExistentEmail } from "../repositories/users-repository";
 import { LoginData, UserData } from "protocols";
 import { emailAlreadyRegisteredError, emailNotRegisteredError, incorrectPasswordError } from "../errors";
-import { passwordIsCorrect } from "../services/users-services";
+import { getToken, passwordIsCorrect } from "../services/users-services";
 
 export async function postUser(req: Request, res: Response) {
     const userData: UserData = req.body;
@@ -19,6 +19,7 @@ export async function login(req: Request, res: Response) {
 
     if(!await verifyExistentEmail(loginData.email)) throw emailNotRegisteredError();
     if(!await passwordIsCorrect(loginData.email, loginData.password)) throw incorrectPasswordError();
+    const token = getToken(loginData.email);
 
-    res.sendStatus(httpStatus.OK)
+    res.status(httpStatus.OK).send(token)
 }
