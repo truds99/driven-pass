@@ -4,6 +4,7 @@ import { CredentialData } from "protocols";
 import { existingCredential, getCredentialsRep, postCredentialRep } from "../repositories/credentials-repository";
 import { User } from "@prisma/client";
 import { existentCredentialError } from "../errors/index"
+import { decryptCredentials } from "../services/credentials-services";
 
 export async function postCredential(req: Request, res: Response) {
     const { username, password, title, url } = req.body as CredentialData
@@ -19,5 +20,5 @@ export async function postCredential(req: Request, res: Response) {
 export async function getCredentials(req: Request, res: Response) {
     const credentials = await getCredentialsRep();
 
-    res.status(httpStatus.OK).send(credentials)
+    res.status(httpStatus.OK).send(decryptCredentials(credentials));
 }
