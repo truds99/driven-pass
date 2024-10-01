@@ -1,7 +1,7 @@
 import httpStatus from "http-status";
 import { Request, Response } from "express";
 import { CredentialData } from "protocols";
-import { existingCredential, postCredentialRep } from "../repositories/credentials-repository";
+import { existingCredential, getCredentialsRep, postCredentialRep } from "../repositories/credentials-repository";
 import { User } from "@prisma/client";
 import { existentCredentialError } from "../errors/index"
 
@@ -14,4 +14,10 @@ export async function postCredential(req: Request, res: Response) {
     await postCredentialRep(req.body, user.id);
 
     res.sendStatus(httpStatus.CREATED)
+}
+
+export async function getCredentials(req: Request, res: Response) {
+    const credentials = await getCredentialsRep();
+
+    res.status(httpStatus.OK).send(credentials)
 }

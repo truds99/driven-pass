@@ -7,8 +7,8 @@ import { getToken, passwordIsCorrect } from "../services/users-services";
 
 export async function postUser(req: Request, res: Response) {
     const userData: UserData = req.body;
-    if(await verifyExistentEmail(userData.email)) throw emailAlreadyRegisteredError();
 
+    if(await verifyExistentEmail(userData.email)) throw emailAlreadyRegisteredError();
     await postUserRep(userData);
 
     res.sendStatus(httpStatus.CREATED)
