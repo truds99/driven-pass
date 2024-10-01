@@ -34,3 +34,10 @@ export function existentCredentialError(): CustomError {
         message: 'this credential is already registered'
     }
 }
+
+export function credentialNotFoundError(): CustomError {
+    return {
+        name: 'not found',
+        message: 'credential not found'
+    }
+}

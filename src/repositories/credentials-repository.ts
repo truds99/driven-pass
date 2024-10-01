@@ -37,3 +37,11 @@ export async function getCredentialsRep() {
     const credentials = await prisma.credential.findMany();
     return credentials;
 }
+
+export async function getOneCredentialRep(id: number) {
+    const credential = await prisma.credential.findUnique({
+        where: { id }
+    });
+    return credential;
+}
+

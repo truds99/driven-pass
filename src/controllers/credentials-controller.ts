@@ -1,9 +1,9 @@
 import httpStatus from "http-status";
 import { Request, Response } from "express";
 import { CredentialData } from "protocols";
-import { existingCredential, getCredentialsRep, postCredentialRep } from "../repositories/credentials-repository";
-import { User } from "@prisma/client";
-import { existentCredentialError } from "../errors/index"
+import { existingCredential, getCredentialsRep, getOneCredentialRep, postCredentialRep } from "../repositories/credentials-repository";
+import { User, Credential } from "@prisma/client";
+import { credentialNotFoundError, existentCredentialError } from "../errors/index"
 import { decryptCredentials } from "../services/credentials-services";
 
 export async function postCredential(req: Request, res: Response) {
@@ -18,7 +18,19 @@ export async function postCredential(req: Request, res: Response) {
 }
 
 export async function getCredentials(req: Request, res: Response) {
+    
     const credentials = await getCredentialsRep();
 
     res.status(httpStatus.OK).send(decryptCredentials(credentials));
+}
+
+export async function getOneCredential(req: Request, res: Response) {
+    const { id } = req.params;
+    const arr: Credential[] = [];
+    const credential = await getOneCredentialRep(Number(id));
+
+    if (!credential) throw credentialNotFoundError();
+    arr.push(credential);
+
+    res.status(httpStatus.OK).send(decryptCredentials(arr));
 }
