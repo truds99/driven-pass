@@ -9,7 +9,7 @@
 - **Prisma ORM**: Utilizes Prisma as an ORM to interact with the database
 
 ## Deployment
-https://my-wallet-backend-vsot.onrender.com
+https://driven-pass-5mxk.onrender.com
 
 ## Technologies
 The following tools and frameworks were used in the construction of the project:<br>
