@@ -34,6 +34,6 @@ model Credential {
   url       String
   createAt DateTime @default(now())
 
-  @@unique([title, username])
+  @@unique([title, userId])
   @@map("credentials")
 }

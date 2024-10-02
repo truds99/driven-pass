@@ -3,6 +3,7 @@ import { prisma } from "../database/index";
 import dotenv from "dotenv";
 dotenv.config();
 import Cryptr from "cryptr";
+import { existentCredentialError } from "../errors/index";
 const cryptr = new Cryptr(process.env.JWT_SECRET);
 
 export async function postCredentialRep(credentialData: CredentialData, userId: number) {
@@ -30,7 +31,7 @@ export async function existingCredential(title: string, userId: number) {
             ]
         }
     });
-    return existingCredential;
+    if (existingCredential) throw existentCredentialError();
 }
 
 export async function getCredentialsRep() {
@@ -63,3 +64,10 @@ export async function updateCredentialRep(credentialData: CredentialData, userId
     });
 }
 
+export async function deleteCredentialRep(id: number) {
+    await prisma.credential.delete({
+        where: {
+            id
+        }
+    })
+}
