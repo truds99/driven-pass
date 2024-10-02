@@ -8,3 +8,7 @@ export function decryptCredentials(credentials: Credential[]) {
         password: cryptr.decrypt(credential.password)
     }));
 }
+
+export function verifyAuthorization(credential: Credential, userId: number) {
+    return (credential.userId === userId);
+}

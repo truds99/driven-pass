@@ -45,3 +45,21 @@ export async function getOneCredentialRep(id: number) {
     return credential;
 }
 
+export async function updateCredentialRep(credentialData: CredentialData, userId: number, id: number) {
+    const { username, password, url, title } = credentialData;
+
+    const encrypted = cryptr.encrypt(password);
+
+    await prisma.credential.update({
+        where: {
+            id
+        },
+        data: {
+            username,
+            password: encrypted,
+            url,
+            title,
+        },
+    });
+}
+

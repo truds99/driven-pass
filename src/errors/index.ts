@@ -48,3 +48,10 @@ export function badRequestError(): CustomError {
         message: 'invalid parameters'
     }
 }
+
+export function unauthorizedError(): CustomError {
+    return {
+        name: 'unauthorized',
+        message: 'access denied'
+    }
+}
