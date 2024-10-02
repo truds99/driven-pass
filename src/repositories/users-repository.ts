@@ -48,3 +48,9 @@ export async function getUserByToken(decoded: any) {
 
     return user;
 }
+
+export async function deleteUserRep(id: number) {
+    await prisma.user.deleteMany({
+        where: { id }
+    });
+}

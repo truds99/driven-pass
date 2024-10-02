@@ -64,10 +64,10 @@ export async function updateCredentialRep(credentialData: CredentialData, userId
     });
 }
 
-export async function deleteCredentialRep(id: number) {
-    await prisma.credential.delete({
-        where: {
-            id
-        }
-    })
+export async function deleteCredentialsRep(id: number, column: 'id' | 'userId') {
+    const where = (column === 'id' ? { id } : { userId: id });
+
+    await prisma.credential.deleteMany({
+        where: where,
+    });
 }

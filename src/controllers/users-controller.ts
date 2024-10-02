@@ -23,3 +23,4 @@ export async function login(req: Request, res: Response) {
 
     res.status(httpStatus.OK).send(token)
 }
+

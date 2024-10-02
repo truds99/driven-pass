@@ -1,9 +1,10 @@
 import httpStatus from "http-status";
 import { Request, Response } from "express";
 import { CredentialData } from "protocols";
-import { deleteCredentialRep, existingCredential, getCredentialsRep, postCredentialRep, updateCredentialRep } from "../repositories/credentials-repository";
+import { deleteCredentialsRep, existingCredential, getCredentialsRep, postCredentialRep, updateCredentialRep } from "../repositories/credentials-repository";
 import { User, Credential } from "@prisma/client";
 import { decryptCredentials, verifyCredential, verifyId } from "../services/credentials-services";
+import { deleteUserRep } from "../repositories/users-repository";
 
 export async function postCredential(req: Request, res: Response) {
     const { username, password, title, url } = req.body as CredentialData
@@ -57,7 +58,17 @@ export async function deleteCredential(req: Request, res: Response) {
 
     const credential = await verifyCredential((id), user.id);
 
-    await deleteCredentialRep(credential.id);
+    await deleteCredentialsRep(credential.id, 'id');
+
+    res.sendStatus(httpStatus.NO_CONTENT)
+}
+
+export async function deleteAccount(req: Request, res: Response) {
+    const user = res.locals.user as User
+
+    await deleteCredentialsRep(user.id, 'userId')
+
+    await deleteUserRep(user.id);
 
     res.sendStatus(httpStatus.NO_CONTENT)
 }
